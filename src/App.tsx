@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useTelegram } from './entities/Telegram'
-import './App.css';
 
 function App() {
   const { Telegram } = useTelegram();
