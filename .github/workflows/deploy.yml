@@ -24,6 +24,8 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Build app
         run: yarn build
+        env:
+          PUBLIC_URL: /tg-webapp.github.io
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
