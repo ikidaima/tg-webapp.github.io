@@ -1,32 +1,35 @@
-import React, { Fragment, useEffect } from "react";
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import React, { useEffect } from "react";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Auth } from "./processes/Auth";
 import { useTelegram } from "./entities/Telegram";
-import { Header } from "./features/Header";
 import Home from "./pages/Home";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
+import Tags from "./pages/Tags";
+import AddTag from "./pages/AddTag";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Fragment>
-        <Header />
-        <Outlet />
-      </Fragment>
-    ),
-
     children: [
       {
         index: true,
         element: <Home />,
       },
       {
-        path: "/profile",
-        element: "tags",
+        path: "profile",
+        children: [
+          {
+            index: true,
+            element: <Tags />,
+          },
+          {
+            path: "add",
+            element: <AddTag />,
+          },
+        ],
       },
     ],
   },
@@ -36,7 +39,6 @@ function App() {
   const { Telegram } = useTelegram();
 
   useEffect(() => {
-    Telegram.MainButton.hide();
     document.body.classList.add(Telegram.colorScheme);
   }, [Telegram.MainButton, Telegram.colorScheme]);
 

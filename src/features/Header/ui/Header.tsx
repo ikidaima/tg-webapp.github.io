@@ -2,8 +2,13 @@ import { Avatar } from "@nextui-org/react";
 import { useTelegram } from "../../../entities/Telegram";
 import { NewsIcon } from "../../../shared/icons/News";
 import { Link } from "react-router-dom";
+import { FC } from "react";
 
-export const Header = function Header() {
+interface Props {
+  title: string;
+}
+
+export const Header: FC<Props> = function Header({ title }) {
   const { Telegram } = useTelegram();
   return (
     <header
@@ -13,13 +18,17 @@ export const Header = function Header() {
         zIndex: 1000,
       }}
     >
-      <NewsIcon
-        style={{ marginRight: "0.5em" }}
-        fontSize={"1.5em"}
-        color="#006FEE"
-      />
-      <h1 className="text-primary font-bold" style={{fontWeight: 900}}>News</h1>
-      <Link to={'profile'}>
+      <Link to={"/"}>
+        <NewsIcon
+          style={{ marginRight: "0.5em" }}
+          fontSize={"1.5em"}
+          color="#006FEE"
+        />
+      </Link>
+      <h1 className="text-primary font-bold" style={{ fontWeight: 900 }}>
+        {title}
+      </h1>
+      <Link to={"profile"}>
         <Avatar
           src={Telegram.initDataUnsafe.user?.photo_url}
           className="ml-auto mr-0"

@@ -56,7 +56,7 @@ export const Post: FC<PostType> = function Post({
         <div className="flex gap-2">
           {tags.slice(0, maxTags).map((item) => {
             return (
-              <span className={`${colorByTagType[item.type]} text-small`}>
+              <span className={`text-${colorByTagType[item.type]} text-small`}>
                 #{item.text}
               </span>
             );

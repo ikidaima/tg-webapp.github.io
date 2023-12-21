@@ -1,5 +1,8 @@
+import { Fragment, useEffect } from "react";
 import { TagType, PostList } from "../entities/Post";
+import { useTelegram } from "../entities/Telegram";
 import { Container } from "../shared/ui/Container";
+import { Header } from "../features/Header";
 
 const posts = [
   {
@@ -73,12 +76,19 @@ const posts = [
   },
 ];
 
-
 const Home = function Home() {
+  const { Telegram } = useTelegram();
+  useEffect(() => {
+    Telegram.BackButton.hide();
+    Telegram.MainButton.hide();
+  }, [Telegram.BackButton, Telegram.MainButton]);
   return (
-    <Container>
-      <PostList posts={posts} isLoading={false} />
-    </Container>
+    <Fragment>
+      <Header title="Новости" />
+      <Container>
+        <PostList posts={posts} isLoading={false} />
+      </Container>
+    </Fragment>
   );
 };
 
