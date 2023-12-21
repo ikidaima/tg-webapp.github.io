@@ -1,5 +1,5 @@
 import React, { ReactNode, FC } from "react";
-import { Spinner } from "@nextui-org/react";
+import { Spinner, Button } from '@nextui-org/react';
 import { useTelegram } from "../../entities/Telegram";
 import { useAuth } from "../../entities/User";
 
@@ -12,7 +12,7 @@ export const Auth: FC<Props> = function Auth({ children }) {
   const userId = Telegram.initDataUnsafe.user?.id;
   const {
     isLoading,
-    // user,
+    user,
   } = useAuth(userId);
 
   if (isLoading) {
@@ -23,5 +23,18 @@ export const Auth: FC<Props> = function Auth({ children }) {
     );
   }
 
-  return <>{children}</>;
+  if (user && 'inNew' in user && user.inNew) {
+    return (
+      <Button>
+        Подписаться
+      </Button>
+    );
+  }
+
+  return (
+    <>
+      {JSON.stringify(user)}
+      {children}
+    </>
+  );
 };
