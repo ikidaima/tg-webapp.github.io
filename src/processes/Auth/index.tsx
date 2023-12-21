@@ -29,21 +29,23 @@ const Describe = function Describe({
 
   if (isSuccess || (user && 'isNew' in user && !user.isNew)) {
     return (
-      <div className="flex items-center justify-center">
+      <div>
         <Card>
           <CardBody>Ваша заявка принята, ожидайте подтверждения</CardBody>
         </Card>
-        <Button onClick={() => window.location.reload()}>Обновить</Button>
+        <div className="flex items-center justify-center p-4">
+          <Button onClick={() => window.location.reload()}>Обновить</Button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div>
       <Card>
         <CardBody>Для доступа к новостям необходимо запросить доступ на подписку</CardBody>
       </Card>
-      <div>
+      <div className="flex items-center justify-center p-4">
         <Button
           disabled={isPending}
           onClick={() => {
@@ -112,11 +114,13 @@ export const Auth: FC<Props> = function Auth({ children }) {
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div>
       <Card>
         <CardBody>Ваша заявка принята, ожидайте подтверждения</CardBody>
       </Card>
-      <Button onClick={() => window.location.reload()}>Обновить</Button>
-    </div>
+      <div className="flex items-center justify-center p-4">
+        <Button onClick={() => window.location.reload()}>Обновить</Button>
+      </div>
+  </div>
   );
 };
