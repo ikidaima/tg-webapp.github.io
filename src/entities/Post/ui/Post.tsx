@@ -5,6 +5,7 @@ import {
   CardBody,
   CardFooter,
   Button,
+  Link,
 } from "@nextui-org/react";
 import { FULL_DATE_FORMAT } from "../../../shared/constants/date";
 import { declOfNum } from "../../../shared/libs/declOfNum";
@@ -42,9 +43,11 @@ export const Post: FC<PostType> = function Post({
             {dayjs(date).format(FULL_DATE_FORMAT)}
           </h5>
         </div>
-        <Button href={url} color="primary" radius="full" size="sm" variant={"solid"}>
-          Перейти
-        </Button>
+        <Link href={url}>
+          <Button color="primary" radius="full" size="sm" variant={"solid"}>
+            Перейти
+          </Button>
+        </Link>
       </CardHeader>
       <CardBody className="px-3 py-0 text-small text--400 gap">
         <p style={textStyle}>{content}</p>
