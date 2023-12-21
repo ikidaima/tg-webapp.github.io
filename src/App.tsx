@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
-import { Auth } from './processes/Auth';
+import { Auth } from "./processes/Auth";
 import { useTelegram } from "./entities/Telegram";
 import { Header } from "./features/Header";
 import { Container } from "./shared/ui/Container";
-import { Post } from "./features/Post";
+import { PostList } from "./entities/Post";
 import { TagType } from "./entities/Post";
 
 function App() {
   const { Telegram } = useTelegram();
 
   useEffect(() => {
-    Telegram.MainButton.text = "Применить";
-    Telegram.MainButton.show();
+    Telegram.MainButton.hide();
     document.body.classList.add(Telegram.colorScheme);
   }, [Telegram.MainButton, Telegram.colorScheme]);
 
@@ -20,28 +19,76 @@ function App() {
       <div className="relative">
         <Header />
         <Container>
-          <Post
-            id="1"
-            content={
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! "
-            }
-            title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem "
-            date="2021-10-10"
-            tags={[
+          <PostList
+            posts={[
               {
-                text: "Hello",
-                type: TagType.personal,
+                id: "1",
+                content:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ",
+                date: "2021-10-10",
+                tags: [
+                  {
+                    text: "Hello",
+                    type: TagType.personal,
+                  },
+                  {
+                    text: "Hello 2",
+                    type: TagType.organization,
+                  },
+                  {
+                    text: "Hello 3",
+                    type: TagType.organization,
+                  },
+                ],
               },
               {
-                text: "Hello 2",
-                type: TagType.organization,
+                id: "2",
+                content:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ",
+                date: "2021-10-10",
+                tags: [
+                  {
+                    text: "Hello",
+                    type: TagType.personal,
+                  },
+                  {
+                    text: "Hello 2",
+                    type: TagType.organization,
+                  },
+                  {
+                    text: "Hello 3",
+                    type: TagType.organization,
+                  },
+                ],
               },
               {
-                text: "Hello 3",
-                type: TagType.organization,
+                id: "3",
+                content:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ",
+                date: "2021-10-10",
+                tags: [
+                  {
+                    text: "Hello",
+                    type: TagType.personal,
+                  },
+                  {
+                    text: "Hello 2",
+                    type: TagType.organization,
+                  },
+                  {
+                    text: "Hello 3",
+                    type: TagType.organization,
+                  },
+                ],
               },
             ]}
-          />
+          ></PostList>
         </Container>
       </div>
     </Auth>

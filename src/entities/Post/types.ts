@@ -8,4 +8,12 @@ interface Tag {
   type: TagType;
 }
 
-export { TagType, type Tag };
+interface PostType {
+  id: string;
+  title: string;
+  content: string;
+  tags: Tag[];
+  date: string;
+}
+
+export { TagType, type Tag, type PostType };

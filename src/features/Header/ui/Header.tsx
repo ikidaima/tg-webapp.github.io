@@ -4,7 +4,13 @@ import { useTelegram } from "../../../entities/Telegram";
 export const Header = function Header() {
   const { Telegram } = useTelegram();
   return (
-    <header className="flex items-center justify-between p-3 sticky top-0 shadow-md">
+    <header
+      className="flex items-center justify-between p-3 sticky top-0 shadow-md"
+      style={{
+        backgroundColor: "var(--tg-theme-bg-color, #fff)",
+        zIndex: 1000,
+      }}
+    >
       <div className="" />
       <Link href="/profile">
         <Avatar

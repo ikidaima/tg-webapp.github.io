@@ -6,10 +6,11 @@ import {
   CardFooter,
   Button,
 } from "@nextui-org/react";
-import { dayjs } from "../../../shared/libs/date";
 import { FULL_DATE_FORMAT } from "../../../shared/constants/date";
-import { Tag, colorByTagType } from "../../../entities/Post";
 import { declOfNum } from "../../../shared/libs/declOfNum";
+import { colorByTagType } from "../constants";
+import { Tag } from "../types";
+import { dayjs } from "../../../shared/libs/date";
 
 const textStyle: Record<string, string> = {
   display: "-webkit-box",
