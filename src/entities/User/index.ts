@@ -1,1 +1,1 @@
-export { useAuth, useUser } from './model';
+export { useAuth, useUser, useUserDescribe } from './model';

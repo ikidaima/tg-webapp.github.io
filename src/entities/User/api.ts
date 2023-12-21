@@ -25,3 +25,11 @@ export const getUserInfo = (id: number) => api
 
       return user;
   });
+
+  export const userDescribe = (body: {
+    sysId: number;
+    userName: string
+    firstName: string;
+    lastName: string;
+  }) => api
+  .post(`api/users/describe`, body)

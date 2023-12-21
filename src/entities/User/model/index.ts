@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import { getUserInfo } from '../api';
+import { useMutation } from '@tanstack/react-query';
+import { getUserInfo, userDescribe } from '../api';
 import { type User } from '../types';
 
 const userAtom = atom<User>(null);
@@ -47,3 +48,9 @@ export const useAuth = function useAuth(id?: number) {
 export const useUser = () => {
   return useAtomValue(userAtom);
 };
+
+export const useUserDescribe = () => {
+  return useMutation({
+    mutationFn: userDescribe,
+  });
+}

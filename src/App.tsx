@@ -1,10 +1,13 @@
 import React, { Fragment, useEffect } from "react";
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { Auth } from "./processes/Auth";
 import { useTelegram } from "./entities/Telegram";
 import { Header } from "./features/Header";
 import Home from "./pages/Home";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -39,9 +42,11 @@ function App() {
 
   return (
     <div style={{ height: "100dvh" }} className="relative overflow-auto">
-      <Auth>
-        <RouterProvider router={router} fallbackElement={<Spinner />} />
-      </Auth>
+      <QueryClientProvider client={queryClient}>
+        <Auth>
+          <RouterProvider router={router} fallbackElement={<Spinner />} />
+        </Auth>
+      </QueryClientProvider>
     </div>
   );
 }
