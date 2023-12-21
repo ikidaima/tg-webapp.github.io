@@ -8,7 +8,7 @@ export const Header = function Header() {
       <div className="" />
       <Link href="/profile">
         <Avatar
-          color="secondary"
+          color="primary"
           src={Telegram.initDataUnsafe.user?.photo_url}
           className="ml-auto mr-0"
           size="sm"
