@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTelegram } from './entities/Telegram'
-import { Button, Stack } from '@mui/material';
+import { Button } from '@nextui-org/react';
 
 function App() {
   const { Telegram } = useTelegram();
@@ -13,10 +13,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Stack>
           Ubic хакатон
-          <Button variant="contained">Hello world</Button>
-        </Stack>
+          <Button color='secondary'>Hello world</Button>
       </header>
     </div>
   );
