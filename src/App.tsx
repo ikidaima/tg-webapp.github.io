@@ -8,7 +8,16 @@ import { Spinner } from "@nextui-org/react";
 import Tags from "./pages/Tags";
 import AddTag from "./pages/AddTag";
 
-const queryClient = new QueryClient();
+const STALE_TIME = 15000;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: STALE_TIME,
+      retry: () => false,
+      refetchOnWindowFocus: () => false
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {

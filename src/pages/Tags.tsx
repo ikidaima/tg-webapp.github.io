@@ -6,31 +6,10 @@ import { Tag, TagType, colorByTagType } from "../entities/Post";
 import { Button } from "@nextui-org/react";
 import { CloseIcon } from "../shared/icons/Close";
 import { Header } from "../features/Header";
-
-const tags: Tag[] = [
-  {
-    text: "Hello 2",
-    type: TagType.organization,
-  },
-  {
-    text: "Hello 2asdf",
-    type: TagType.organization,
-  },
-  {
-    text: "Hello Hello Hello Hello Hello Hello Hello",
-    type: TagType.personal,
-  },
-  {
-    text: "Hello 23",
-    type: TagType.organization,
-  },
-  {
-    text: "Hello 211",
-    type: TagType.organization,
-  },
-];
+import { useUser } from "../entities/User";
 
 const Tags = function Tags() {
+  const user = useUser()
   const [selectedTag, setSelectedTag] = useState("");
   const { Telegram } = useTelegram();
   const navigate = useNavigate();
@@ -51,8 +30,27 @@ const Tags = function Tags() {
   }, [Telegram.MainButton, navigate]);
 
   const sortedTags = useMemo(() => {
+    const tags: Tag[] = [];
+
+    // @ts-ignore
+    user?.tagsPerson?.forEach((item) => {
+      tags.push({
+        text: item,
+        type: TagType.personal
+      })
+    })
+
+    // @ts-ignore
+    user?.tagsOrganization?.forEach((item) => {
+      tags.push({
+        text: item,
+        type: TagType.organization
+      })
+    })
+
     return [...tags].sort((a, b) => a.text.localeCompare(b.text));
-  }, []);
+    // @ts-ignore
+  }, [user?.tagsOrganization, user?.tagsPerson]);
 
   const handleClick = (tag: Tag) => () => {
     if (selectedTag !== tag.text) {
@@ -61,11 +59,13 @@ const Tags = function Tags() {
       console.log("delete");
     }
   };
+
   return (
     <Fragment>
       <Header title="Теги" />
       <Container>
         <div className="flex gap-2 flex-wrap justify-center">
+          {sortedTags.length === 0 && 'Нет тегов'}
           {sortedTags.map((tag) => (
             <Button
               size="md"

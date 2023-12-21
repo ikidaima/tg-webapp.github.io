@@ -13,7 +13,7 @@ import { colorByTagType } from "../constants";
 import { PostType } from "../types";
 import { dayjs } from "../../../shared/libs/date";
 
-const textStyle: Record<string, string> = {
+const textStyle: Record<string, any> = {
   display: "-webkit-box",
   "-webkit-line-clamp": "4",
   "-webkit-box-orient": "vertical",
@@ -40,7 +40,7 @@ export const Post: FC<PostType> = function Post({
             {title}
           </h4>
           <h5 className="text-small tracking-tight text-default-400">
-            {dayjs(date).format(FULL_DATE_FORMAT)}
+          {date}
           </h5>
         </div>
         <Link href={url}>

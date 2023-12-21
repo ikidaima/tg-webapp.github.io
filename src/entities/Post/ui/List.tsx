@@ -24,7 +24,7 @@ export const PostList: FC<Props> = function PostList({ posts, isLoading }) {
       style={{  overflow: "auto", height: "100%" }}
       className="flex flex-col gap-4 overflow-auto"
     >
-      {posts.length === 0 && <p>Нет постов</p>}
+      {posts.length === 0 && <p className="text-center">Нет постов</p>}
       {posts.map((post) => {
         return <Post key={post.id} {...post} />;
       })}

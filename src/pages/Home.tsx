@@ -3,6 +3,8 @@ import { TagType, PostList } from "../entities/Post";
 import { useTelegram } from "../entities/Telegram";
 import { Container } from "../shared/ui/Container";
 import { Header } from "../features/Header";
+import { usePosts } from "../entities/Post/model";
+import { useNavigate } from "react-router-dom";
 
 const posts = [
   {
@@ -77,16 +79,26 @@ const posts = [
 ];
 
 const Home = function Home() {
+  const navigate = useNavigate();
+  const { data, isLoading, isFetching } = usePosts();
   const { Telegram } = useTelegram();
   useEffect(() => {
     Telegram.BackButton.hide();
     Telegram.MainButton.hide();
-  }, [Telegram.BackButton, Telegram.MainButton]);
+
+    if (!isFetching && (!data || data.length === 0)) {
+      Telegram.MainButton.show();
+      Telegram.MainButton.text = "Добавить тег";
+      Telegram.MainButton.onClick(() => {
+        navigate("/profile/add");
+      });
+    }
+  }, [Telegram.BackButton, Telegram.MainButton, data, isFetching, navigate]);
   return (
     <Fragment>
       <Header title="Новости" />
       <Container>
-        <PostList posts={posts} isLoading={false} />
+        <PostList posts={data} isLoading={isLoading} />
       </Container>
     </Fragment>
   );
