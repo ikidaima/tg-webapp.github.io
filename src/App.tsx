@@ -1,82 +1,33 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Auth } from "./processes/Auth";
 import { useTelegram } from "./entities/Telegram";
 import { Header } from "./features/Header";
-import { Container } from "./shared/ui/Container";
-import { PostList } from "./entities/Post";
-import { TagType } from "./entities/Post";
+import Home from "./pages/Home";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Spinner } from "@nextui-org/react";
 
-const posts = [
+const router = createBrowserRouter([
   {
-    id: "1",
-    url: "https://icons8.com/icons/set/news",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ",
-    date: "2021-10-10",
-    tags: [
+    path: "/",
+    element: (
+      <Fragment>
+        <Header />
+        <Outlet />
+      </Fragment>
+    ),
+
+    children: [
       {
-        text: "Hello",
-        type: TagType.personal,
+        index: true,
+        element: <Home />,
       },
       {
-        text: "Hello 2",
-        type: TagType.organization,
-      },
-      {
-        text: "Hello 3",
-        type: TagType.organization,
+        path: "/profile",
+        element: "tags",
       },
     ],
   },
-  {
-    id: "2",
-    url: "https://icons8.com/icons/set/news",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ",
-    date: "2021-10-10",
-    tags: [
-      {
-        text: "Hello",
-        type: TagType.personal,
-      },
-      {
-        text: "Hello 2",
-        type: TagType.organization,
-      },
-      {
-        text: "Hello 3",
-        type: TagType.organization,
-      },
-    ],
-  },
-  {
-    id: "3",
-    url: "https://icons8.com/icons/set/news",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
-    title:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ",
-    date: "2021-10-10",
-    tags: [
-      {
-        text: "Hello",
-        type: TagType.personal,
-      },
-      {
-        text: "Hello 2",
-        type: TagType.organization,
-      },
-      {
-        text: "Hello 3",
-        type: TagType.organization,
-      },
-    ],
-  },
-];
+]);
 
 function App() {
   const { Telegram } = useTelegram();
@@ -89,10 +40,7 @@ function App() {
   return (
     <div style={{ height: "100dvh" }} className="relative overflow-auto">
       <Auth>
-        <Header />
-        <Container>
-          <PostList posts={posts} isLoading={false} />
-        </Container>
+        <RouterProvider router={router} fallbackElement={<Spinner />} />
       </Auth>
     </div>
   );
