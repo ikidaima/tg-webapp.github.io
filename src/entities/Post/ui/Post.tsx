@@ -7,11 +7,8 @@ import {
   Button,
   Link,
 } from "@nextui-org/react";
-import { FULL_DATE_FORMAT } from "../../../shared/constants/date";
-import { declOfNum } from "../../../shared/libs/declOfNum";
 import { colorByTagType } from "../constants";
 import { PostType } from "../types";
-import { dayjs } from "../../../shared/libs/date";
 
 const textStyle: Record<string, any> = {
   display: "-webkit-box",
@@ -53,8 +50,8 @@ export const Post: FC<PostType> = function Post({
         <p style={textStyle}>{content}</p>
       </CardBody>
       <CardFooter className="gap-1">
-        <div className="flex gap-2">
-          {tags.slice(0, maxTags).map((item) => {
+        <div className="flex gap-2 flex-wrap">
+          {tags.map((item) => {
             return (
               <span className={`text-${colorByTagType[item.type]} text-small`}>
                 #{item.text}
@@ -62,12 +59,6 @@ export const Post: FC<PostType> = function Post({
             );
           })}
         </div>
-        {otherTagsLength > 0 && (
-          <span className="text-default-400 text-small">
-            +{otherTagsLength}{" "}
-            {declOfNum(otherTagsLength, "тег", "тега", "тегов")}
-          </span>
-        )}
       </CardFooter>
     </Card>
   );

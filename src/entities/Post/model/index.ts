@@ -25,7 +25,7 @@ interface Params {
 
 const getPosts = ({ tagsOrganization, tagsPerson }: Omit<Params, 'enabled'>) =>
   apiPublic
-    .post<Response>("/api/news/find/", {
+    .post<Response>("/api/news/find/?page=0&size=50", {
       tagsOrganization: tagsOrganization,
       tagsPerson: tagsPerson,
     })
