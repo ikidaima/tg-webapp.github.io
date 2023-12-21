@@ -2,8 +2,12 @@ import { api } from '../../shared/api';
 import { NotVerifiedUser, VerifiedUser } from './types';
 
 export const getUserInfo = (id: number) => api
-  .get(`/login/${id}`)
+  .get(`api/users/login/${id}/`, { validateStatus: () => true })
   .then((response) => {
+    if (response.status === 200) {
+      return response.data as VerifiedUser ;
+    }
+
     if (response.status === 401) {
       const user: NotVerifiedUser = {
         isVerified: false,
@@ -14,14 +18,10 @@ export const getUserInfo = (id: number) => api
       return user;
     }
 
-    if (response.status === 403) {
       const user: NotVerifiedUser = {
         isVerified: false,
         isRejected: true,
       };
 
       return user;
-    }
-
-    return response.data as VerifiedUser ;
   });
