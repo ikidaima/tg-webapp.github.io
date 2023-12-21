@@ -1,7 +1,7 @@
-import React, { ReactNode, FC } from 'react';
-import { Spinner } from '@nextui-org/react';
-import { useTelegram } from '../../entities/Telegram';
-import { useAuth } from '../../entities/User';
+import React, { ReactNode, FC } from "react";
+import { Spinner } from "@nextui-org/react";
+import { useTelegram } from "../../entities/Telegram";
+import { useAuth } from "../../entities/User";
 
 interface Props {
   children?: ReactNode;
@@ -9,14 +9,18 @@ interface Props {
 
 export const Auth: FC<Props> = function Auth({ children }) {
   const { Telegram } = useTelegram();
-  const userId = Telegram.initDataUnsafe.user?.id
+  const userId = Telegram.initDataUnsafe.user?.id;
   const {
     isLoading,
     // user,
   } = useAuth(userId);
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <div className="flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
   }
 
   return <>{children}</>;
