@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTelegram } from './entities/Telegram'
+import { Button, Stack } from '@mui/material';
 
 function App() {
   const { Telegram } = useTelegram();
@@ -12,9 +13,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
+        <Stack>
           Ubic хакатон
-        </p>
+          <Button variant="contained">Hello world</Button>
+        </Stack>
       </header>
     </div>
   );
