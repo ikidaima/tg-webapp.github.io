@@ -1,35 +1,26 @@
 import { useState, useCallback, useEffect } from 'react';
 import { atom, useAtom, useAtomValue } from 'jotai';
+import { getUserInfo } from '../api';
+import { type User } from '../types';
 
-interface VerifiedUser {
-  tagsPerson: string[];
-  tagsOrganization: string[]; 
-}
-interface WaitVerifyUser {
-  isRejected: boolean;
-  isVerified: boolean;
-}
+const userAtom = atom<User>(null);
 
-type User = VerifiedUser | WaitVerifyUser | null;
-
-const userAtom = atom(null);
-
-export const useAuth = function useAuth() {
+export const useAuth = function useAuth(id: string) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useAtom(userAtom);
 
   const fetch = useCallback(() => {
-    // getUserInfo()
-    //   .then((data) => {
-    //     if (data) {
-    //       setUser(data);
-    //     }
-    //   })
-    //   .catch(() => null)
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
-  }, [setUser]);
+    getUserInfo(id)
+      .then((data) => {
+        if (data) {
+          setUser(data);
+        }
+      })
+      .catch(() => null)
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [setUser, id]);
 
   useEffect(() => {
     if (!user) {
