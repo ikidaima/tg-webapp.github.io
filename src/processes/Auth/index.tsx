@@ -1,39 +1,48 @@
 import React, { ReactNode, FC } from "react";
 import { Spinner, Card, CardBody, Button } from '@nextui-org/react';
 import { useTelegram } from "../../entities/Telegram";
-import { useAuth, useUserDescribe } from "../../entities/User";
+import { useAuth, useUserDescribe, type User } from "../../entities/User";
 
 interface Props {
   children?: ReactNode;
 }
 
 const Describe = function Describe({
+  user,
   userId,
   userName,
   lastName,
   firstName,
 }: {
+  user: User;
   userId: number;
   userName: string;
   lastName: string;
   firstName: string;
 }) {
+  console.log("🚀 ~ file: index.tsx:23 ~ user:", user)
   const {
     isPending,
     isSuccess,
     mutate,
   } = useUserDescribe();
 
-
-  if (isSuccess) {
-    <div className="flex items-center justify-center">
-      Ваша заявка принята, ожидайте подтверждения
-    </div>
+  if (isSuccess || (user && 'isNew' in user && !user.isNew)) {
+    return (
+      <div className="flex items-center justify-center">
+        <Card>
+          <CardBody>Ваша заявка принята, ожидайте подтверждения</CardBody>
+        </Card>
+        <Button onClick={() => window.location.reload()}>Обновить</Button>
+      </div>
+    );
   }
 
   return (
     <div className="flex items-center justify-center">
-      Для доступа к новостям необходимо запросить доступ на подписку
+      <Card>
+        <CardBody>Для доступа к новостям необходимо запросить доступ на подписку</CardBody>
+      </Card>
       <div>
         <Button
           disabled={isPending}
@@ -77,6 +86,7 @@ export const Auth: FC<Props> = function Auth({ children }) {
   if (user && 'isNew' in user && user.isNew) {
     return (
       <Describe
+        user={user}
         userId={userId}
         firstName={firstName}
         lastName={lastName}
@@ -93,9 +103,20 @@ export const Auth: FC<Props> = function Auth({ children }) {
     );
   }
 
+  if (user && 'isRejected' in user && user.isRejected) {
+    return (
+      <Card>
+        <CardBody>К сожалению вам заблокировали доступ</CardBody>
+      </Card>
+    );
+  }
+
   return (
-    <Card>
-      <CardBody>К сожалению вам заблокировали доступ</CardBody>
-    </Card>
+    <div className="flex items-center justify-center">
+      <Card>
+        <CardBody>Ваша заявка принята, ожидайте подтверждения</CardBody>
+      </Card>
+      <Button onClick={() => window.location.reload()}>Обновить</Button>
+    </div>
   );
 };

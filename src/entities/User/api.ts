@@ -22,6 +22,15 @@ export const getUserInfo = (id: number) => api
       return user;
     }
 
+    if (response.status === 423) {
+      const user: NotVerifiedUser = {
+        isVerified: false,
+        isRejected: false,
+      };
+
+      return user;
+    }
+
       const user: NotVerifiedUser = {
         isVerified: false,
         isRejected: true,
