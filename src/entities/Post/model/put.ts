@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "../../../shared/api";
+import { useSetAtom } from "jotai";
+import { userAtom } from "../../User/model";
 
 interface ResponsePost {
   url?: string;
@@ -29,17 +31,18 @@ const putPosts = ({ id, tagsOrganization, tagsPerson }: Params) =>
     })
     .then((response) => response.data.data);
 
-export const usePutPosts = function usePutPosts({
-  onSuccess,
-}: {
-  onSuccess: () => void;
-}) {
+export const usePutPosts = function usePutPosts() {
+  const setAtom = useSetAtom(userAtom);
   const queryClient = useQueryClient();
   const result = useMutation({
     mutationFn: putPosts,
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
-      onSuccess();
+      setAtom({
+        isVerified: true,
+        tagsOrganization: variables.tagsOrganization,
+        tagsPerson: variables.tagsPerson,
+      });
     },
   });
 

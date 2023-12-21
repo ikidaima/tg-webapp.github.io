@@ -17,15 +17,25 @@ interface Response {
   data: ResponsePost[];
 }
 
-const getPosts = () =>
+interface Params {
+  enabled: boolean,
+  tagsPerson: string[];
+  tagsOrganization: string[];
+}
+
+const getPosts = ({ tagsOrganization, tagsPerson }: Omit<Params, 'enabled'>) =>
   apiPublic
-    .post<Response>("/api/news/find/", {})
+    .post<Response>("/api/news/find/", {
+      tagsOrganization: tagsOrganization,
+      tagsPerson: tagsPerson,
+    })
     .then((response) => response.data.data);
 
-export const usePosts = function usePosts() {
+export const usePosts = function usePosts({enabled, ...params}: Params) {
   const result = useQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
+    queryKey: ["posts", params],
+    queryFn: () => getPosts(params),
+    enabled,
   });
 
   const data = useMemo(() => {

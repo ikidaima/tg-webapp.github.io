@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { getUserInfo, userDescribe } from '../api';
 import { type User } from '../types';
 
-const userAtom = atom<User>(null);
+export const userAtom = atom<User>(null);
 
 export const useAuth = function useAuth(id?: number) {
   const [isLoading, setIsLoading] = useState(true);

@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { useTelegram } from "../entities/Telegram";
 import { useNavigate } from "react-router-dom";
 import { Container } from "../shared/ui/Container";
 import { Header } from "../features/Header";
-import { Autocomplete, AutocompleteItem, Button } from "@nextui-org/react";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { Tag, TagType, colorByTagType } from "../entities/Post";
 import { usePutPosts } from "../entities/Post/model/put";
 import { useUser } from "../entities/User";
@@ -51,11 +51,7 @@ const tags: Tag[] = [
 ].sort((a, b) => a.text.localeCompare(b.text));
 
 const AddTag = function AddTag() {
-  const { mutate } = usePutPosts({
-    onSuccess: () => {
-      navigate("/profile");
-    },
-  });
+  const { mutate } = usePutPosts();
   const user = useUser();
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
   const { Telegram } = useTelegram();
@@ -78,6 +74,7 @@ const AddTag = function AddTag() {
           // @ts-ignore
           tagsOrganization: [...(user.tagsOrganization || [])],
         });
+        navigate("/profile");
       }
 
       if (selectedTag && selectedTag.type === TagType.organization) {
@@ -88,11 +85,12 @@ const AddTag = function AddTag() {
           tagsPerson: [...(user.tagsPerson || [])],
           // @ts-ignore
           tagsOrganization: [
-          // @ts-ignore
+            // @ts-ignore
             ...(user.tagsOrganization || []),
             selectedTag.text,
           ],
         });
+        navigate("/profile");
       }
     });
     // @ts-ignore
@@ -108,6 +106,17 @@ const AddTag = function AddTag() {
     // @ts-ignore
     user.tagsPerson,
   ]);
+
+  const filteredTags = useMemo(() => {
+    return tags.filter(
+      (item) =>
+        !(
+    // @ts-ignore
+          user.tagsOrganization.includes(item.text) || user.tagsPerson.includes(item.text)
+        )
+    );
+    // @ts-ignore
+  }, [user.tagsOrganization, user.tagsPerson]);
 
   useEffect(() => {
     Telegram.BackButton.show();
@@ -136,7 +145,7 @@ const AddTag = function AddTag() {
             labelPlacement="outside"
             onInputChange={handleChange}
           >
-            {tags.map((tag) => (
+            {filteredTags.map((tag) => (
               <AutocompleteItem
                 color={colorByTagType[tag.type] as any}
                 key={tag.text}
@@ -147,36 +156,6 @@ const AddTag = function AddTag() {
             ))}
           </Autocomplete>
         </div>
-        <Button
-          onClick={() => {
-            if (selectedTag && selectedTag.type === TagType.personal) {
-              mutate({
-                // @ts-ignore
-                id: Telegram.initDataUnsafe.user?.id || '5000702878',
-                // @ts-ignore
-                tagsPerson: [...(user.tagsPerson || []), selectedTag.text],
-                // @ts-ignore
-                tagsOrganization: [...(user.tagsOrganization || [])],
-              });
-            }
-
-            if (selectedTag && selectedTag.type === TagType.organization) {
-              mutate({
-                // @ts-ignore
-                id: Telegram.initDataUnsafe.user?.id || '5000702878',
-                // @ts-ignore
-                tagsPerson: [...(user.tagsPerson || [])],
-                tagsOrganization: [
-                // @ts-ignore
-                  ...(user.tagsOrganization || []),
-                  selectedTag.text,
-                ],
-              });
-            }
-          }}
-        >
-          Debug
-        </Button>
       </Container>
     </Fragment>
   );

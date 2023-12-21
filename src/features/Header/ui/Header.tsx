@@ -28,7 +28,7 @@ export const Header: FC<Props> = function Header({ title }) {
       <h1 className="text-primary font-bold" style={{ fontWeight: 900 }}>
         {title}
       </h1>
-      <Link to={"profile"}>
+      <Link to={"/profile"}>
         <Avatar
           src={Telegram.initDataUnsafe.user?.photo_url}
           className="ml-auto mr-0"

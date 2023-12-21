@@ -21,7 +21,7 @@ const textStyle: Record<string, any> = {
   textAlign: "justify",
 };
 
-const maxTags = 2;
+const maxTags = 1;
 
 export const Post: FC<PostType> = function Post({
   id,

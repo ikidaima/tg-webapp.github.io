@@ -7,9 +7,11 @@ import { Button } from "@nextui-org/react";
 import { CloseIcon } from "../shared/icons/Close";
 import { Header } from "../features/Header";
 import { useUser } from "../entities/User";
+import { usePutPosts } from "../entities/Post/model/put";
 
 const Tags = function Tags() {
-  const user = useUser()
+  const { mutate } = usePutPosts();
+  const user = useUser();
   const [selectedTag, setSelectedTag] = useState("");
   const { Telegram } = useTelegram();
   const navigate = useNavigate();
@@ -36,17 +38,17 @@ const Tags = function Tags() {
     user?.tagsPerson?.forEach((item) => {
       tags.push({
         text: item,
-        type: TagType.personal
-      })
-    })
+        type: TagType.personal,
+      });
+    });
 
     // @ts-ignore
     user?.tagsOrganization?.forEach((item) => {
       tags.push({
         text: item,
-        type: TagType.organization
-      })
-    })
+        type: TagType.organization,
+      });
+    });
 
     return [...tags].sort((a, b) => a.text.localeCompare(b.text));
     // @ts-ignore
@@ -56,7 +58,17 @@ const Tags = function Tags() {
     if (selectedTag !== tag.text) {
       setSelectedTag(tag.text);
     } else {
-      console.log("delete");
+      mutate({
+        // @ts-ignore
+        id: Telegram.initDataUnsafe.user?.id,
+        // @ts-ignore
+        tagsPerson: (user.tagsPerson || []).filter((item) => item !== tag.text),
+        // @ts-ignore
+        tagsOrganization: (user.tagsOrganization || []).filter(
+          // @ts-ignore
+          (item) => item !== tag.text
+        ),
+      });
     }
   };
 
@@ -65,9 +77,10 @@ const Tags = function Tags() {
       <Header title="Теги" />
       <Container>
         <div className="flex gap-2 flex-wrap justify-center">
-          {sortedTags.length === 0 && 'Нет тегов'}
+          {sortedTags.length === 0 && "Нет тегов"}
           {sortedTags.map((tag) => (
             <Button
+              key={tag.text}
               size="md"
               color={colorByTagType[tag.type] as any}
               onClick={handleClick(tag)}
