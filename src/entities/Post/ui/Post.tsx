@@ -9,29 +9,22 @@ import {
 import { FULL_DATE_FORMAT } from "../../../shared/constants/date";
 import { declOfNum } from "../../../shared/libs/declOfNum";
 import { colorByTagType } from "../constants";
-import { Tag } from "../types";
+import { PostType } from "../types";
 import { dayjs } from "../../../shared/libs/date";
 
 const textStyle: Record<string, string> = {
   display: "-webkit-box",
-  "-webkit-line-clamp": "3",
+  "-webkit-line-clamp": "4",
   "-webkit-box-orient": "vertical",
   overflow: "hidden",
   textAlign: "justify",
 };
 
-interface Props {
-  id: string;
-  title: string;
-  content: string;
-  tags: Tag[];
-  date: string;
-}
-
 const maxTags = 2;
 
-export const Post: FC<Props> = function Post({
+export const Post: FC<PostType> = function Post({
   id,
+  url,
   content,
   date,
   tags,
@@ -49,7 +42,7 @@ export const Post: FC<Props> = function Post({
             {dayjs(date).format(FULL_DATE_FORMAT)}
           </h5>
         </div>
-        <Button color="primary" radius="full" size="sm" variant={"solid"}>
+        <Button href={url} color="primary" radius="full" size="sm" variant={"solid"}>
           Перейти
         </Button>
       </CardHeader>

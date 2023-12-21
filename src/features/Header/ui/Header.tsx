@@ -1,5 +1,6 @@
 import { Avatar, Link } from "@nextui-org/react";
 import { useTelegram } from "../../../entities/Telegram";
+import { NewsIcon } from "../../../shared/icons/News";
 
 export const Header = function Header() {
   const { Telegram } = useTelegram();
@@ -11,10 +12,14 @@ export const Header = function Header() {
         zIndex: 1000,
       }}
     >
-      <div className="" />
+      <NewsIcon
+        style={{ marginRight: "0.5em" }}
+        fontSize={"1.5em"}
+        color="#006FEE"
+      />
+      <h1 className="text-primary font-bold" style={{fontWeight: 900}}>News</h1>
       <Link href="/profile">
         <Avatar
-          color="primary"
           src={Telegram.initDataUnsafe.user?.photo_url}
           className="ml-auto mr-0"
           size="sm"

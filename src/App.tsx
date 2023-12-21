@@ -23,6 +23,7 @@ function App() {
             posts={[
               {
                 id: "1",
+                url: "https://icons8.com/icons/set/news",
                 content:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
                 title:
@@ -45,6 +46,7 @@ function App() {
               },
               {
                 id: "2",
+                url: "https://icons8.com/icons/set/news",
                 content:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
                 title:
@@ -67,6 +69,7 @@ function App() {
               },
               {
                 id: "3",
+                url: "https://icons8.com/icons/set/news",
                 content:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! ",
                 title:

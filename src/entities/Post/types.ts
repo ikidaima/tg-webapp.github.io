@@ -10,6 +10,7 @@ interface Tag {
 
 interface PostType {
   id: string;
+  url: string;
   title: string;
   content: string;
   tags: Tag[];
