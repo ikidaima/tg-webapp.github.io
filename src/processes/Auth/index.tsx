@@ -7,17 +7,17 @@ interface Props {
   children?: ReactNode;
 }
 
-export const Auth: FC<Props> = function Auth() {
+export const Auth: FC<Props> = function Auth({ children }) {
   const { Telegram } = useTelegram();
   const userId = Telegram.initDataUnsafe.user?.id
   const {
     isLoading,
-    user,
+    // user,
   } = useAuth(userId);
 
   if (isLoading) {
     return <Spinner />
   }
 
-  return null;
+  return <>{children}</>;
 };
