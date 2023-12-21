@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useTelegram } from './entities/Telegram'
-import { Button } from '@nextui-org/react';
+import { Header } from './features/Header';
+import { Container } from './shared/ui/Container';
+import { Post } from './entities/Post';
 
 function App() {
   const { Telegram } = useTelegram();
@@ -11,11 +13,11 @@ function App() {
   }, [Telegram.MainButton]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-          Ubic хакатон
-          <Button color='secondary'>Hello world</Button>
-      </header>
+    <div className="relative">
+      <Header/>
+      <Container>
+       <Post/>
+      </Container>
     </div>
   );
 }
