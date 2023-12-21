@@ -5,7 +5,11 @@ export const getUserInfo = (id: number) => api
   .get(`api/users/login/${id}/`, { validateStatus: () => true })
   .then((response) => {
     if (response.status === 200) {
-      return response.data as VerifiedUser ;
+      return {
+        isVerified: true,
+        tagsPerson: response.data?.tagsPerson || [],
+        tagsOrganization: response.data?.tagsOrganization || [],
+      } as VerifiedUser;
     }
 
     if (response.status === 401) {
@@ -32,4 +36,4 @@ export const getUserInfo = (id: number) => api
     firstName: string;
     lastName: string;
   }) => api
-  .post(`api/users/describe`, body)
+  .post(`api/users/register`, body)

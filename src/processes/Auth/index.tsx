@@ -1,5 +1,5 @@
-import React, { ReactNode, FC, useEffect } from "react";
-import { Spinner, Card, CardBody } from '@nextui-org/react';
+import React, { ReactNode, FC } from "react";
+import { Spinner, Card, CardBody, Button } from '@nextui-org/react';
 import { useTelegram } from "../../entities/Telegram";
 import { useAuth, useUserDescribe } from "../../entities/User";
 
@@ -18,35 +18,12 @@ const Describe = function Describe({
   lastName: string;
   firstName: string;
 }) {
-  const { Telegram } = useTelegram();
   const {
     isPending,
     isSuccess,
     mutate,
   } = useUserDescribe();
 
-  useEffect(() => {
-    if (isPending) {
-      Telegram.MainButton.disable();
-    }
-  }, [isPending]);
-
-  useEffect(() => {
-    Telegram.MainButton.hide();
-  }, [isSuccess]);
-
-  useEffect(() => {
-    Telegram.MainButton.text = 'Подписаться';
-    Telegram.MainButton.show();
-    Telegram.MainButton.onClick(() => {
-      mutate({
-        sysId: userId,
-        userName,
-        lastName,
-        firstName,
-      })
-    });
-  }, [])
 
   if (isSuccess) {
     <div className="flex items-center justify-center">
@@ -57,6 +34,21 @@ const Describe = function Describe({
   return (
     <div className="flex items-center justify-center">
       Для доступа к новостям необходимо запросить доступ на подписку
+      <div>
+        <Button
+          disabled={isPending}
+          onClick={() => {
+            mutate({
+              sysId: userId,
+              userName,
+              lastName,
+              firstName,
+            })
+          }}
+        >
+          Подписаться
+        </Button>
+      </div>
     </div>
   );
 };
@@ -72,7 +64,7 @@ export const Auth: FC<Props> = function Auth({ children }) {
     isLoading,
     user,
   } = useAuth(userId);
-    console.log("🚀 ~ file: index.tsx:25 ~ Auth ~ user:", user)
+    console.log("🚀 ~ file: index.tsx:67 ~ Auth ~ user:", user)
 
   if (isLoading) {
     return (

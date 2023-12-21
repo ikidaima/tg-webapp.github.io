@@ -1,6 +1,7 @@
 export interface VerifiedUser {
   tagsPerson: string[];
-  tagsOrganization: string[]; 
+  tagsOrganization: string[];
+  isVerified: true;
 }
 export interface NotVerifiedUser {
   isRejected: boolean;
