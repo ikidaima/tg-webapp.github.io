@@ -6,6 +6,7 @@ function App() {
 
   useEffect(() => {
     Telegram.MainButton.text = 'Применить'
+    Telegram.MainButton.show();
   }, [Telegram.MainButton]);
 
   return (
