@@ -1,7 +1,7 @@
 import { api } from '../../shared/api';
 import { NotVerifiedUser, VerifiedUser } from './types';
 
-export const getUserInfo = (id: string) => api
+export const getUserInfo = (id: number) => api
   .get(`/api/users/team`)
   .then((response) => {
     if (response.status === 401) {

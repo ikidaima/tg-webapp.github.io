@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Auth } from './processes/Auth';
 import { useTelegram } from "./entities/Telegram";
 import { Header } from "./features/Header";
 import { Container } from "./shared/ui/Container";
@@ -15,33 +16,35 @@ function App() {
   }, [Telegram.MainButton, Telegram.colorScheme]);
 
   return (
-    <div className="relative">
-      <Header />
-      <Container>
-        <Post
-          id="1"
-          content={
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! "
-          }
-          title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem "
-          date="2021-10-10"
-          tags={[
-            {
-              text: "Hello",
-              type: TagType.personal,
-            },
-            {
-              text: "Hello 2",
-              type: TagType.organization,
-            },
-            {
-              text: "Hello 3",
-              type: TagType.organization,
-            },
-          ]}
-        />
-      </Container>
-    </div>
+    <Auth>
+      <div className="relative">
+        <Header />
+        <Container>
+          <Post
+            id="1"
+            content={
+              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! "
+            }
+            title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum! Lorem "
+            date="2021-10-10"
+            tags={[
+              {
+                text: "Hello",
+                type: TagType.personal,
+              },
+              {
+                text: "Hello 2",
+                type: TagType.organization,
+              },
+              {
+                text: "Hello 3",
+                type: TagType.organization,
+              },
+            ]}
+          />
+        </Container>
+      </div>
+    </Auth>
   );
 }
 

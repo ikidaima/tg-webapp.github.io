@@ -5,11 +5,19 @@ import { type User } from '../types';
 
 const userAtom = atom<User>(null);
 
-export const useAuth = function useAuth(id: string) {
+export const useAuth = function useAuth(id?: number) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useAtom(userAtom);
 
   const fetch = useCallback(() => {
+    if (!id) {
+      setUser({
+        isVerified: false,
+        isRejected: true,
+      });
+      return;
+    }
+
     getUserInfo(id)
       .then((data) => {
         if (data) {
